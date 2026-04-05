@@ -51,6 +51,34 @@ CCISTTA_chatbot/
 └── README.md
 ```
 
+## Prerequis
+
+Avant de lancer le projet, il faut installer:
+
+- `Node.js`
+- `npm`
+
+`npm` est generalement installe automatiquement avec Node.js.
+
+Pour verifier que les deux sont disponibles:
+
+```bash
+node -v
+npm -v
+```
+
+Si Node.js n'est pas encore installe, il faut d'abord l'installer depuis le site officiel, puis relancer les commandes ci-dessus pour verifier l'installation.
+
+## Dependances du projet
+
+Les dependances principales utilisees sont:
+
+- `express`: creation du serveur web et des routes API
+- `cors`: gestion des autorisations d'acces entre frontend et backend
+- `dotenv`: chargement des variables d'environnement depuis le fichier `.env`
+- `openai`: client utilise ici pour communiquer avec Hugging Face Router
+- `nodemon` en developpement: redemarrage automatique du serveur lors des modifications
+
 ## Installation
 
 Installer les dependances:
@@ -167,3 +195,7 @@ L'interface contient:
 - des actions rapides
 - un selecteur de checklist
 
+
+## Contexte
+
+Projet realise autour d'un chatbot d'information administrative pour la CCISTTA.
