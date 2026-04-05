@@ -1,0 +1,44 @@
+[
+  {
+    "text": "Quels documents faut-il pour la carte d'adhesion ?",
+    "language": "fr",
+    "intent": "ask_documents",
+    "procedure": "carte-adhesion",
+    "mode": "standard"
+  },
+  {
+    "text": "Je veux une checklist pour la legalisation",
+    "language": "fr",
+    "intent": "ask_checklist",
+    "procedure": "visa",
+    "mode": "checklist"
+  },
+  {
+    "text": "Combien coute le certificat d'origine ?",
+    "language": "fr",
+    "intent": "ask_price",
+    "procedure": "certificat-origine",
+    "mode": "standard"
+  },
+  {
+    "text": "ما هي الوثائق المطلوبة لشهادة الاصل",
+    "language": "ar",
+    "intent": "ask_documents",
+    "procedure": "certificat-origine",
+    "mode": "standard"
+  },
+  {
+    "text": "اريد لائحة تحقق خاصة بالمصادقة",
+    "language": "ar",
+    "intent": "ask_checklist",
+    "procedure": "visa",
+    "mode": "checklist"
+  },
+  {
+    "text": "ما هي مدة الحصول على الشهادة السلبية",
+    "language": "ar",
+    "intent": "ask_delay",
+    "procedure": "certificat-negatif",
+    "mode": "standard"
+  }
+]
