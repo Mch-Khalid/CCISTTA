@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CCISTTA | Assistant des Procedures</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="brand-block">
+        <div class="brand-mark">
+          <img src="logo.png" alt="Logo CCISTTA">
+        </div>
+        <div>
+          <p class="eyebrow" data-i18n="header_eyebrow">Plateforme d'information administrative</p>
+          <h1>CCISTTA Assistant</h1>
+        </div>
+      </div>
+      <nav class="top-nav">
+        <a class="nav-link active" data-section="assistant" data-i18n="nav_assistant" href="#">Assistant</a>
+        <a class="nav-link" data-section="procedures" data-i18n="nav_procedures" href="#">Procedures</a>
+        <a class="nav-link" data-section="contact" data-i18n="nav_contact" href="#">Contact</a>
+      </nav>
+      <div class="header-tools">
+        <label class="header-language-picker" for="languageSelect">
+          <span data-i18n="language_label">Langue</span>
+          <select id="languageSelect">
+            <option value="fr">Francais</option>
+            <option value="ar">Arabe</option>
+          </select>
+        </label>
+        <button id="themeToggle" class="theme-toggle" aria-label="Changer de theme">Mode nuit</button>
+      </div>
+    </header>
+
+    <main class="main-grid">
+      <section id="assistantSection" class="content-section active">
+        <div class="hero-panel">
+          <div class="hero-copy">
+            <p class="eyebrow" data-i18n="hero_eyebrow">Procedures, delais, tarifs, documents</p>
+            <h2 data-i18n="hero_title">Un assistant guide pour orienter les usagers vers la bonne demarche.</h2>
+            <p data-i18n="hero_description">
+              L'interface combine une base de procedures structuree avec une couche IA pour repondre en langage naturel.
+              L'utilisateur peut chercher librement ou partir d'une fiche procedure, puis demander une reponse en francais, en arabe, ou en checklist simple.
+            </p>
+            <div class="hero-actions">
+              <div class="checklist-chooser">
+                <label for="checklistProcedureSelect" data-i18n="checklist_select_label">Choisir une procedure</label>
+                <select id="checklistProcedureSelect"></select>
+                <button id="checklistBtn" class="primary-btn" type="button" data-i18n="quick_checklist">Obtenir une checklist</button>
+              </div>
+            </div>
+          </div>
+          <div class="hero-aside">
+            <div class="metric-card">
+              <span class="metric-label" data-i18n="metric_procedures">Procedures disponibles</span>
+              <strong id="procedureCount">0</strong>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label" data-i18n="metric_guidance">Guidage</span>
+              <strong data-i18n="metric_guidance_value">Checklist, documents et etapes</strong>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label" data-i18n="metric_usage">Usage conseille</span>
+              <strong data-i18n="metric_usage_value">Question libre ou selection par fiche</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="workspace-grid">
+          <aside class="procedure-rail">
+            <div class="rail-header">
+              <p class="eyebrow" data-i18n="catalog_eyebrow">Catalogue</p>
+              <h3 data-i18n="catalog_title">Explorer les procedures</h3>
+            </div>
+            <label class="search-box" for="procedureSearch">
+              <span data-i18n="search_label">Recherche rapide</span>
+              <input id="procedureSearch" type="search" placeholder="Certificat, adhesion, export...">
+            </label>
+            <div class="category-filters" id="categoryFilters"></div>
+            <div class="procedure-list" id="procedureList"></div>
+            <div class="rail-footer">
+              <button class="ghost-btn" id="clearChatBtn" data-i18n="clear_conversation">Reinitialiser la conversation</button>
+              <a href="https://ccistta.ma" target="_blank" rel="noreferrer" data-i18n="official_site">Consulter le site officiel</a>
+            </div>
+          </aside>
+
+          <section class="chat-panel">
+            <div class="chat-header">
+              <div>
+                <p class="eyebrow" data-i18n="chat_eyebrow">Assistant conversationnel</p>
+                <h3 data-i18n="chat_title">Poser une question sur une procedure</h3>
+              </div>
+              <div class="chat-controls">
+                <div class="suggestion-row">
+                <button class="chip quick-action" data-query="Quels documents faut-il pour la carte d'adhesion ?" data-i18n="chip_documents">Documents</button>
+                <button class="chip quick-action" data-query="Je veux savoir les tarifs du certificat d'origine." data-i18n="chip_tarifs">Tarifs</button>
+                <button class="chip quick-action" data-query="Explique-moi les etapes pour legaliser un document." data-i18n="chip_etapes">Etapes</button>
+                <button class="chip quick-action" data-query="Donne-moi une checklist simple pour l'attestation professionnelle." data-i18n="chip_checklist">Checklist</button>
+                <button class="chip quick-action" data-query="Explique-moi clairement la procedure du certificat d'origine." data-i18n="chip_procedure">Procedure</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="messages-area" id="messagesArea">
+              <article class="message assistant-message">
+                <div class="avatar">
+                  <img src="logo.png" alt="Logo CCISTTA" class="avatar-img">
+                </div>
+                <div class="bubble">
+                  <div class="bubble-content">
+                  <p data-i18n-html="welcome_intro"><strong>Bienvenue.</strong> Je peux vous informer sur les procedures de la CCISTTA.</p>
+                  <p data-i18n="welcome_subtitle">Choisissez la langue de reponse puis demandez une procedure en langage naturel, par exemple :</p>
+                  <ul>
+                    <li data-i18n="welcome_example_1">Je veux creer une entreprise, quelle demarche pour le nom commercial ?</li>
+                    <li data-i18n="welcome_example_2">Quels documents faut-il pour un certificat d'origine ?</li>
+                    <li data-i18n="welcome_example_3">Resume-moi la procedure de legalisation.</li>
+                  </ul>
+                </div>
+                <div class="message-meta"><span data-i18n="assistant_name">Assistant CCISTTA</span></div>
+              </div>
+            </article>
+            </div>
+
+            <div class="typing-indicator" id="typingIndicator">
+              <div class="avatar">
+                <img src="logo.png" alt="Logo CCISTTA" class="avatar-img">
+              </div>
+              <div class="typing-bubble">
+                <div class="dot-typing"><span></span><span></span><span></span></div>
+                <span data-i18n="typing_label">Analyse de la demande...</span>
+              </div>
+            </div>
+
+            <div class="composer">
+              <textarea id="chatInput" rows="1" placeholder="Exemple : Je veux une checklist pour la legalisation"></textarea>
+              <button id="sendMsgBtn" class="send-btn" disabled data-i18n="send_button">Envoyer</button>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section id="proceduresSection" class="content-section">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow" data-i18n="procedures_eyebrow">Base de procedures</p>
+              <h2 data-i18n="procedures_title">Fiches rapides</h2>
+            </div>
+            <p data-i18n="procedures_description">Chaque fiche resume le delai, le tarif, les documents et le besoin d'adhesion.</p>
+          </div>
+          <div class="cards-grid" id="procedureCards"></div>
+        </div>
+      </section>
+
+      <section id="contactSection" class="content-section">
+        <div class="section-card contact-layout">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow" data-i18n="contact_eyebrow">Contact</p>
+              <h2 data-i18n="contact_title">Coordonnees utiles</h2>
+            </div>
+            <p data-i18n="contact_description">Pour une confirmation officielle ou une demarche specifique, contactez directement la CCISTTA.</p>
+          </div>
+          <div class="cards-grid compact-grid">
+            <article class="info-card">
+              <h3 data-i18n="contact_address">Adresse</h3>
+              <p>Angle Rues Ibn Taimia et El Hariri, B.P. 411, Tanger</p>
+            </article>
+            <article class="info-card">
+              <h3 data-i18n="contact_website">Site officiel</h3>
+              <p><a href="https://ccistta.ma" target="_blank" rel="noreferrer">ccistta.ma</a></p>
+            </article>
+            <article class="info-card">
+              <h3>Extranet</h3>
+              <p><a href="https://ccistta.ma/extranet/monespace.php" target="_blank" rel="noreferrer">Mon Espace CCISTTA</a></p>
+            </article>
+            <article class="info-card">
+              <h3 data-i18n="contact_payments">Paiements</h3>
+              <p data-i18n="contact_payments_value">TPE, Tresor, Regisseur</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
